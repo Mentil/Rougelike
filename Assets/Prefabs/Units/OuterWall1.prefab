@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7198793949491239820}
   m_Layer: 8
   m_Name: OuterWall1
-  m_TagString: Untagged
+  m_TagString: OuterWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,6 +9,8 @@ TagManager:
   - Soda
   - Exit
   - Floor
+  - OuterWall
+  - Wall
   layers:
   - Default
   - TransparentFX
