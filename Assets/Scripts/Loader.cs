@@ -1,17 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
-public class Loader : MonoBehaviour
+namespace Assets.Scripts
 {
-    public GameObject gameManager;
-
-    // Start is called before the first frame update
-    void Awake()
+    public class Loader : MonoBehaviour
     {
-        if (GameManager.instance == null)
+        public GameObject gameManager;
+
+        // Start is called before the first frame update
+        void Awake()
         {
-            Instantiate(gameManager);
-        }    
+            if (GameManager.instance == null)
+            {
+                Instantiate(gameManager);
+            }
+        }
     }
 }
