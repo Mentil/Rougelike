@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;	//Allows us to use UI.
+﻿
+using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
