@@ -25,10 +25,11 @@ namespace Assets.Scripts
         }
 
 
-        public int columns = 8;                                         //Number of columns in our game board.
-        public int rows = 8;                                            //Number of rows in our game board.
-        public Count wallCount = new Count(5, 9);                      //Lower and upper limit for our random number of walls per level.
-        public Count foodCount = new Count(1, 5);                      //Lower and upper limit for our random number of food items per level.
+        public int columns = 16;                                         //Number of columns in our game board.
+        public int rows = 16;                                            //Number of rows in our game board.
+        public Count wallCount = new Count(50, 80);                      //Lower and upper limit for our random number of walls per level.
+        public Count foodCount = new Count(5, 10);                      //Lower and upper limit for our random number of food items per level.
+        public Count enemyCount = new Count(1, 2);
         public GameObject exit;                                         //Prefab to spawn for exit.
         public GameObject[] floorTiles;                                 //Array of floor prefabs.
         public GameObject[] wallTiles;                                  //Array of wall prefabs.
@@ -47,11 +48,15 @@ namespace Assets.Scripts
             gridPositions.Clear();
 
             //Loop through x axis (columns).
-            for (int x = 1; x < columns - 1; x++)
+            for (int x = 0; x < columns; x++)
             {
                 //Within each column, loop through y axis (rows).
-                for (int y = 1; y < rows - 1; y++)
+                for (int y = 0; y < rows; y++)
                 {
+                    if ((x == 0 && y == 0) || (x == columns - 1 && y == rows - 1))
+                    {
+                        continue;
+                    }
                     //At each index add a new Vector3 to our list with the x and y coordinates of that position.
                     gridPositions.Add(new Vector3(x, y, 0f));
                 }
@@ -71,6 +76,7 @@ namespace Assets.Scripts
                 //Loop along y axis, starting from -1 to place floor or outerwall tiles.
                 for (int y = -1; y < rows + 1; y++)
                 {
+
                     //Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
                     GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
 
@@ -143,10 +149,11 @@ namespace Assets.Scripts
             LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
 
             //Determine number of enemies based on current level number, based on a logarithmic progression
-            int enemyCount = (int)Mathf.Log(level, 2f);
+            enemyCount.minimum = (int)Mathf.Log(level, 2f) * 10;
+            enemyCount.maximum = (int) Mathf.Log(level, 2f) * 20;
 
             //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
-            LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+            LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
 
             //Instantiate the exit tile in the upper right hand corner of our game board
             Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);

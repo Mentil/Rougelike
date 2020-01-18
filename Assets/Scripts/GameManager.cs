@@ -12,7 +12,7 @@ namespace Assets.Scripts
     public class GameManager : MonoBehaviour
     {
         public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
-        public float turnDelay = 0.1f;                          //Delay between each Player turn.
+        public float turnDelay = 0.0f;                          //Delay between each Player turn.
         public int playerFoodPoints = 100;                      //Starting value for Player food points.
         public static GameManager instance;                     //Static instance of GameManager which allows it to be accessed by any other script.
         [HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
@@ -140,6 +140,8 @@ namespace Assets.Scripts
 
             //Disable this GameManager.
             enabled = false;
+
+            Application.Quit();
         }
 
         //Co routine to move enemies in sequence.
@@ -155,7 +157,7 @@ namespace Assets.Scripts
             if (_enemies.Count == 0)
             {
                 //Wait for turnDelay seconds between moves, replaces delay caused by enemies moving when there are none.
-                yield return new WaitForSeconds(turnDelay);
+                //yield return new WaitForSeconds(turnDelay);
             }
 
             //Loop through List of Enemy objects.
@@ -164,7 +166,7 @@ namespace Assets.Scripts
                 enemy.MoveEnemy();
 
                 //Wait for Enemy's moveTime before moving next Enemy, 
-                yield return new WaitForSeconds(enemy.moveTime);
+                //yield return new WaitForSeconds(enemy.moveTime);
             }
             //Once Enemies are done moving, set playersTurn to true so player can move.
             playersTurn = true;
