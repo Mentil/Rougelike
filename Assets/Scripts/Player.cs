@@ -168,7 +168,7 @@ namespace Assets.Scripts
             hitWall.DamageWall(wallDamage);
 
             //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
-            animator.SetTrigger("playerChop");
+            animator.SetTrigger("PlayerChop");
         }
 
 
@@ -233,7 +233,7 @@ namespace Assets.Scripts
         public void LoseFood(int loss)
         {
             //Set the trigger for the player animator to transition to the playerHit animation.
-            animator.SetTrigger("playerHit");
+            animator.SetTrigger("PlayerHit");
 
             //Subtract lost food points from the players total.
             food -= loss;
