@@ -1,4 +1,5 @@
 ﻿
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -21,10 +22,11 @@ namespace Assets.Scripts
         public AudioClip drinkSound2;               //2 of 2 Audio clips to play when player collects a soda object.
         public AudioClip gameOverSound;             //Audio clip to play when player dies.
 
-        private Animator animator;                  //Used to store a reference to the Player's animator component.
-        private int food;                           //Used to store player food points total during level.
+        private Animator _animator;                  //Used to store a reference to the Player's animator component.
+        private int _food;                           //Used to store player food points total during level.
+
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-        private Vector2 touchOrigin = -Vector2.one;	//Used to store location of screen touch origin for mobile controls.
+        private Vector2 _touchOrigin = -Vector2.one;	//Used to store location of screen touch origin for mobile controls.
 #endif
 
 
@@ -32,13 +34,13 @@ namespace Assets.Scripts
         protected override void Start()
         {
             //Get a component reference to the Player's animator component
-            animator = GetComponent<Animator>();
+            _animator = GetComponent<Animator>();
 
             //Get the current food point total stored in GameManager.instance between levels.
-            food = GameManager.instance.playerFoodPoints;
+            _food = GameManager.instance.playerFoodPoints;
 
             //Set the foodText to reflect the current player food total.
-            foodText.text = "Food: " + food;
+            foodText.text = "Food: " + _food;
 
             //Call the Start function of the MovingObject base class.
             base.Start();
@@ -46,29 +48,28 @@ namespace Assets.Scripts
 
 
         //This function is called when the behaviour becomes disabled or inactive.
+        [UsedImplicitly]
         private void OnDisable()
         {
             //When Player object is disabled, store the current local food total in the GameManager so it can be re-loaded in next level.
-            GameManager.instance.playerFoodPoints = food;
+            GameManager.instance.playerFoodPoints = _food;
         }
 
 
+        [UsedImplicitly]
         private void Update()
         {
             //If it's not the player's turn, exit the function.
             if (!GameManager.instance.playersTurn) return;
 
-            int horizontal = 0;     //Used to store the horizontal move direction.
-            int vertical = 0;       //Used to store the vertical move direction.
-
             //Check if we are running either in the Unity editor or in a standalone build.
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
 
             //Get input from the input manager, round it to an integer and store in horizontal to set x axis move direction
-            horizontal = (int)(Input.GetAxisRaw("Horizontal"));
+            var horizontal = (int)(Input.GetAxisRaw("Horizontal"));
 
             //Get input from the input manager, round it to an integer and store in vertical to set y axis move direction
-            vertical = (int)(Input.GetAxisRaw("Vertical"));
+            var vertical = (int)(Input.GetAxisRaw("Vertical"));
 
             //Check if moving horizontally, if so set vertical to zero.
             if (horizontal != 0)
@@ -87,24 +88,24 @@ namespace Assets.Scripts
 				//Check if the phase of that touch equals Began
 				if (myTouch.phase == TouchPhase.Began)
 				{
-					//If so, set touchOrigin to the position of that touch
-					touchOrigin = myTouch.position;
+					//If so, set _touchOrigin to the position of that touch
+					_touchOrigin = myTouch.position;
 				}
 				
-				//If the touch phase is not Began, and instead is equal to Ended and the x of touchOrigin is greater or equal to zero:
-				else if (myTouch.phase == TouchPhase.Ended && touchOrigin.x >= 0)
+				//If the touch phase is not Began, and instead is equal to Ended and the x of _touchOrigin is greater or equal to zero:
+				else if (myTouch.phase == TouchPhase.Ended && _touchOrigin.x >= 0)
 				{
 					//Set touchEnd to equal the position of this touch
 					Vector2 touchEnd = myTouch.position;
 					
 					//Calculate the difference between the beginning and end of the touch on the x axis.
-					float x = touchEnd.x - touchOrigin.x;
+					float x = touchEnd.x - _touchOrigin.x;
 					
 					//Calculate the difference between the beginning and end of the touch on the y axis.
-					float y = touchEnd.y - touchOrigin.y;
+					float y = touchEnd.y - _touchOrigin.y;
 					
-					//Set touchOrigin.x to -1 so that our else if statement will evaluate false and not repeat immediately.
-					touchOrigin.x = -1;
+					//Set _touchOrigin.x to -1 so that our else if statement will evaluate false and not repeat immediately.
+					_touchOrigin.x = -1;
 					
 					//Check if the difference along the x axis is greater than the difference along the y axis.
 					if (Mathf.Abs(x) > Mathf.Abs(y))
@@ -116,7 +117,7 @@ namespace Assets.Scripts
 				}
 			}
 			
-#endif //End of mobile platform dependendent compilation section started above with #elif
+#endif //End of mobile platform compilation section started above with #elif
             //Check if we have a non-zero value for horizontal or vertical
             if (horizontal != 0 || vertical != 0)
             {
@@ -131,10 +132,10 @@ namespace Assets.Scripts
         protected override void AttemptMove<T>(int xDir, int yDir)
         {
             //Every time player moves, subtract from food points total.
-            food--;
+            _food--;
 
             //Update food text display to reflect current score.
-            foodText.text = "Food: " + food;
+            foodText.text = "Food: " + _food;
 
             //Call the AttemptMove method of the base class, passing in the component T (in this case Wall) and x and y direction to move.
             base.AttemptMove<T>(xDir, yDir);
@@ -161,18 +162,16 @@ namespace Assets.Scripts
         //It takes a generic parameter T which in the case of Player is a Wall which the player can attack and destroy.
         protected override void OnCantMove<T>(T component)
         {
-            //Set hitWall to equal the component passed in as a parameter.
-            Wall hitWall = component as Wall;
-
-            //Call the DamageWall function of the Wall we are hitting.
-            hitWall.DamageWall(wallDamage);
-
-            //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
-            animator.SetTrigger("PlayerChop");
+            if (component is Wall wall)
+            {
+                wall.DamageWall(wallDamage);
+                _animator.SetTrigger("PlayerChop");
+            }
         }
 
 
         //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
+        [UsedImplicitly]
         private void OnTriggerEnter2D(Collider2D other)
         {
             //Check if the tag of the trigger collided with is Exit.
@@ -189,10 +188,10 @@ namespace Assets.Scripts
             else if (other.tag == "Food")
             {
                 //Add pointsPerFood to the players current food total.
-                food += pointsPerFood;
+                _food += pointsPerFood;
 
                 //Update foodText to represent current total and notify player that they gained points
-                foodText.text = "+" + pointsPerFood + " Food: " + food;
+                foodText.text = "+" + pointsPerFood + " Food: " + _food;
 
                 //Call the RandomizeSfx function of SoundManager and pass in two eating sounds to choose between to play the eating sound effect.
                 SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
@@ -205,10 +204,10 @@ namespace Assets.Scripts
             else if (other.tag == "Soda")
             {
                 //Add pointsPerSoda to players food points total
-                food += pointsPerSoda;
+                _food += pointsPerSoda;
 
                 //Update foodText to represent current total and notify player that they gained points
-                foodText.text = "+" + pointsPerSoda + " Food: " + food;
+                foodText.text = "+" + pointsPerSoda + " Food: " + _food;
 
                 //Call the RandomizeSfx function of SoundManager and pass in two drinking sounds to choose between to play the drinking sound effect.
                 SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
@@ -220,6 +219,7 @@ namespace Assets.Scripts
 
 
         //Restart reloads the scene when called.
+        [UsedImplicitly]
         private void Restart()
         {
             //Load the last scene loaded, in this case Main, the only scene in the game. And we load it in "Single" mode so it replace the existing one
@@ -233,13 +233,13 @@ namespace Assets.Scripts
         public void LoseFood(int loss)
         {
             //Set the trigger for the player animator to transition to the playerHit animation.
-            animator.SetTrigger("PlayerHit");
+            _animator.SetTrigger("PlayerHit");
 
             //Subtract lost food points from the players total.
-            food -= loss;
+            _food -= loss;
 
             //Update the food display with the new total.
-            foodText.text = "-" + loss + " Food: " + food;
+            foodText.text = "-" + loss + " Food: " + _food;
 
             //Check to see if game has ended.
             CheckIfGameOver();
@@ -250,7 +250,7 @@ namespace Assets.Scripts
         private void CheckIfGameOver()
         {
             //Check if food point total is less than or equal to zero.
-            if (food <= 0)
+            if (_food <= 0)
             {
                 //Call the PlaySingle function of SoundManager and pass it the gameOverSound as the audio clip to play.
                 SoundManager.instance.PlaySingle(gameOverSound);
