@@ -140,8 +140,14 @@ namespace Assets.Scripts
 
             //Disable this GameManager.
             enabled = false;
+            Invoke("loadMenu", 2);
 
             Application.Quit();
+        }
+
+        void loadMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
         }
 
         //Co routine to move enemies in sequence.
