@@ -45,7 +45,7 @@ namespace Assets.Scripts
         {
             if (!GameManager.instance.playersTurn) return;
 
-#if UNITY_STANDALONE || UNITY_WEBPLAYER
+#if UNITY_STANDALONE || UNITY_WEBGL
 
             var horizontal = (int)(Input.GetAxisRaw("Horizontal"));
             var vertical = (int)(Input.GetAxisRaw("Vertical"));
