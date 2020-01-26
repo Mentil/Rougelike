@@ -3,25 +3,18 @@ using System.Collections;
 
 namespace Assets.Scripts
 {
-    //The abstract keyword enables you to create classes and class members that are incomplete and must be implemented in a derived class.
     public abstract class MovingObject : MonoBehaviour
     {
-        public float moveTime = 0.1f;           //Time it will take object to move, in seconds.
-        public LayerMask blockingLayer;         //Layer on which collision will be checked.
+        public float moveTime = 0.1f;
+        public LayerMask blockingLayer;
 
+        private BoxCollider2D _boxCollider;
+        private Rigidbody2D _rb2D;
+        private float _inverseMoveTime;
 
-        private BoxCollider2D _boxCollider;      //The BoxCollider2D component attached to this object.
-        private Rigidbody2D _rb2D;               //The Rigidbody2D component attached to this object.
-        private float _inverseMoveTime;          //Used to make movement more efficient.
-
-
-        //Protected, virtual functions can be overridden by inheriting classes.
         protected virtual void Start()
         {
-            //Get a component reference to this object's BoxCollider2D
             _boxCollider = GetComponent<BoxCollider2D>();
-
-            //Get a component reference to this object's Rigidbody2D
             _rb2D = GetComponent<Rigidbody2D>();
 
             //By storing the reciprocal of the move time we can use it by multiplying instead of dividing, this is more efficient.
@@ -33,19 +26,16 @@ namespace Assets.Scripts
         //Move takes parameters for x direction, y direction and a RaycastHit2D to check collision.
         protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
         {
-            //Store start position to move from, based on objects current transform position.
             Vector2 start = transform.position;
 
-            // Calculate end position based on the direction parameters passed in when calling Move.
             Vector2 end = start + new Vector2(xDir, yDir);
 
             //Disable the boxCollider so that linecast doesn't hit this object's own collider.
+            //Re-enable boxCollider after linecast
             _boxCollider.enabled = false;
 
-            //Cast a line from start point to end point checking collision on blockingLayer.
             hit = Physics2D.Linecast(start, end, blockingLayer);
 
-            //Re-enable boxCollider after linecast
             _boxCollider.enabled = true;
 
             //Check if anything was hit
@@ -58,7 +48,6 @@ namespace Assets.Scripts
                 return true;
             }
 
-            //If something was hit, return false, Move was unsuccesful.
             return false;
         }
 
@@ -87,10 +76,9 @@ namespace Assets.Scripts
             }
         }
 
-
         //The virtual keyword means AttemptMove can be overridden by inheriting classes using the override keyword.
         //AttemptMove takes a generic parameter T to specify the type of component we expect our unit to interact with if blocked (Player for Enemies, Wall for Player).
-        protected virtual void AttemptMove<T>(int xDir, int yDir)
+        protected virtual bool AttemptMove<T>(int xDir, int yDir)
             where T : Component
         {
             //Hit will store whatever our linecast hits when Move is called.
@@ -102,7 +90,7 @@ namespace Assets.Scripts
             //Check if nothing was hit by linecast
             if (hit.transform == null)
                 //If nothing was hit, return and don't execute further code.
-                return;
+                return true;
 
             //Get a component reference to the component of type T attached to the object that was hit
             T hitComponent = hit.transform.GetComponent<T>();
@@ -112,6 +100,7 @@ namespace Assets.Scripts
 
                 //Call the OnCantMove function and pass it hitComponent as a parameter.
                 OnCantMove(hitComponent);
+            return false;
         }
 
 

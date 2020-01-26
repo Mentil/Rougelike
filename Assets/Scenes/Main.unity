@@ -228,9 +228,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5,
         type: 3}
+      propertyPath: moveSounds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5,
+        type: 3}
+      propertyPath: eatSounds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5,
+        type: 3}
+      propertyPath: drinkSounds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5,
+        type: 3}
       propertyPath: foodText
       value: 
-      objectReference: {fileID: 606316298}
+      objectReference: {fileID: 0}
+    - target: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5,
+        type: 3}
+      propertyPath: restartLevelDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5,
+        type: 3}
+      propertyPath: blockingLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5,
+        type: 3}
+      propertyPath: gameOverSound
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5736922894385278208, guid: e335179c7cc1ea24a9442e69d9644ab5,
         type: 3}
       propertyPath: m_Name
@@ -291,8 +321,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e335179c7cc1ea24a9442e69d9644ab5, type: 3}
+--- !u!1 &1604077141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5736922894385278208, guid: e335179c7cc1ea24a9442e69d9644ab5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1390413122}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1604077142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604077141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8187d75ee31024da4230e55fb67158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 0.1
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  pointsPerFood: 10
+  pointsPerSoda: 20
+  wallDamage: 1
+  foodText: {fileID: 606316298}
+  moveSounds: []
+  eatSounds: []
+  drinkSounds: []
+  gameOverSound: {fileID: 0}
 --- !u!1001 &4654420726340463607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -370,7 +431,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 4540497916761641219, guid: d818a70d2341fc2478a07776117d728c,
+      objectReference: {fileID: 4793767481110950509, guid: d818a70d2341fc2478a07776117d728c,
         type: 3}
     - target: {fileID: 4654420726433485707, guid: d5e859be19cd9d64abf13ca48dbcf600,
         type: 3}

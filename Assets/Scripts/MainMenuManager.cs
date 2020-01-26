@@ -9,12 +9,12 @@ namespace Assets.Scripts
 
         public void StartButton_OnClick()
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Main", LoadSceneMode.Single);
         }
 
         public void OptionsButton_OnClick()
         {
-            //SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Options", LoadSceneMode.Single);
         }
 
         public void ExitButton_OnClick()

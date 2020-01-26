@@ -20,6 +20,7 @@ namespace Assets.Scripts
                 Instantiate(soundManager);
         }
 
+        [UsedImplicitly]
         void Update()
         {
             if (Input.GetKey("escape"))

@@ -36,13 +36,13 @@ namespace Assets.Scripts
 
         //Override the AttemptMove function of MovingObject to include functionality needed for Enemy to skip turns.
         //See comments in MovingObject for more on how base AttemptMove function works.
-        protected override void AttemptMove<T>(int xDir, int yDir)
+        protected override bool AttemptMove<T>(int xDir, int yDir)
         {
             //Check if skipMove is true, if so set it to false and skip this turn.
             if (_skipMove)
             {
                 _skipMove = false;
-                return;
+                return false;
 
             }
 
@@ -51,6 +51,7 @@ namespace Assets.Scripts
 
             //Now that Enemy has moved, set skipMove to true to skip next move.
             _skipMove = true;
+            return true;
         }
 
 
