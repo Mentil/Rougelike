@@ -8,7 +8,6 @@ namespace Assets.Scripts
 {
     public class Player : MovingObject
     {
-        public float restartLevelDelay = 1f;
         public int pointsPerFood = 10;
         public int pointsPerSoda = 20;
         public int wallDamage = 1;
@@ -22,7 +21,7 @@ namespace Assets.Scripts
         private int _food;                  
         private bool _isColliding;
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-        private Vector2 _touchOrigin = -Vector2.one;	//Used to store location of screen touch origin for mobile controls.
+        private Vector2 _touchOrigin = -Vector2.one;
 #endif
 
         protected override void Start()
@@ -128,7 +127,7 @@ namespace Assets.Scripts
             {
                 _isColliding = true;
                 GameManager.instance.playerFoodPoints = _food;
-                Invoke("Restart", restartLevelDelay);
+                Invoke("Restart", GameManager.instance.levelStartDelay);
                 enabled = false;
             }
             else if (other.tag == "Food")
