@@ -24,7 +24,7 @@ namespace Assets.Scripts
 
         private Animator _animator;                  //Used to store a reference to the Player's animator component.
         private int _food;                           //Used to store player food points total during level.
-
+        private bool _isColliding = false;
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
         private Vector2 _touchOrigin = -Vector2.one;	//Used to store location of screen touch origin for mobile controls.
 #endif
@@ -52,7 +52,7 @@ namespace Assets.Scripts
         private void OnDisable()
         {
             //When Player object is disabled, store the current local food total in the GameManager so it can be re-loaded in next level.
-            GameManager.instance.playerFoodPoints = _food;
+            //GameManager.instance.playerFoodPoints = _food;
         }
 
 
@@ -174,9 +174,13 @@ namespace Assets.Scripts
         [UsedImplicitly]
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if(_isColliding)
+                return;
             //Check if the tag of the trigger collided with is Exit.
             if (other.tag == "Exit")
             {
+                _isColliding = true;
+                GameManager.instance.playerFoodPoints = _food;
                 //Invoke the Restart function to start the next level with a delay of restartLevelDelay (default 1 second).
                 Invoke("Restart", restartLevelDelay);
 
