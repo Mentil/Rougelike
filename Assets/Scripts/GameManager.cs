@@ -21,7 +21,7 @@ namespace Assets.Scripts
         private Text _levelText;                                 //Text to display current level number.
         private GameObject _levelImage;                          //Image to block out level as levels are being set up, background for _levelText.
         private BoardManager _boardScript;                       //Store a reference to our BoardManager which will set up the level.
-        private int _level = 1;                                  //Current level number, expressed in game as "Day 1".
+        private int _level;                                      //Current level number, expressed in game as "Day 1".
         private List<Enemy> _enemies;                            //List of all Enemy units, used to issue them move commands.
         private bool _enemiesMoving;                             //Boolean to check if enemies are moving.
         private bool _doingSetup = true;                         //Boolean to check if we're setting up board, prevent Player from moving during setup.
@@ -145,7 +145,7 @@ namespace Assets.Scripts
             Application.Quit();
         }
 
-        void loadMenu()
+        void LoadMainMenu()
         {
             SceneManager.LoadScene("MainMenu");
         }
@@ -163,7 +163,7 @@ namespace Assets.Scripts
             if (_enemies.Count == 0)
             {
                 //Wait for turnDelay seconds between moves, replaces delay caused by enemies moving when there are none.
-                //yield return new WaitForSeconds(turnDelay);
+                yield return new WaitForSeconds(turnDelay);
             }
 
             //Loop through List of Enemy objects.
@@ -172,7 +172,7 @@ namespace Assets.Scripts
                 enemy.MoveEnemy();
 
                 //Wait for Enemy's moveTime before moving next Enemy, 
-                //yield return new WaitForSeconds(enemy.moveTime);
+                yield return new WaitForSeconds(enemy.moveTime);
             }
             //Once Enemies are done moving, set playersTurn to true so player can move.
             playersTurn = true;
