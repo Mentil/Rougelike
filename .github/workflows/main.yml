@@ -1,4 +1,5 @@
-name: main
+#TODO: use private actions and set up to use environment variables from repo
+name: Main
 
 on:
   pull_request: {}
@@ -12,11 +13,9 @@ jobs:
     name: Request manual activation file 🔑
     runs-on: ubuntu-latest
     steps:
-      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      # Request manual activation file
       - name: Request manual activation file
         uses: webbertakken/unity-request-manual-activation-file@v1
         id: getManualLicenseFile
@@ -29,14 +28,12 @@ jobs:
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
   requestActivation:
-    name: Request activation ✔
+    name: Request activation ✅
     runs-on: ubuntu-latest
     steps:
-      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      # Activate Unity
       - name: Unity - Activate
         uses: webbertakken/unity-activate@v1
         env:
@@ -46,11 +43,9 @@ jobs:
     name: Test in editmode 📝
     runs-on: ubuntu-latest
     steps:
-      # Checkout repository (required to test local actions)
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      # Configure test runner
       - name: Run tests
         id: testRunner
         uses: webbertakken/unity-test-runner@v1
@@ -58,8 +53,7 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           TEST_MODE: editmode
 
-      # Upload artifact
-      - name: Expose as artifact
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Test results (edit mode)
@@ -69,11 +63,9 @@ jobs:
     name: Test in playmode 📺
     runs-on: ubuntu-latest
     steps:
-      # Checkout repository (required to test local actions)
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      # Configure test runner
       - name: Run tests
         id: testRunner
         uses: webbertakken/unity-test-runner@v1
@@ -81,8 +73,7 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           TEST_MODE: playmode
 
-      # Upload artifact
-      - name: Expose as artifact
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Test results (play mode)
@@ -92,11 +83,9 @@ jobs:
     name: Test all modes ✨
     runs-on: ubuntu-latest
     steps:
-      # Checkout repository (required to test local actions)
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      # Configure test runner
       - name: Run tests
         id: testRunner
         uses: webbertakken/unity-test-runner@v1
@@ -104,23 +93,28 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           TEST_MODE: all
 
-      # Upload artifacts
-      - name: Expose as artifact
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Test results (all modes)
           path: ${{ steps.testRunner.outputs.artifactsPath }}
 
-  buildForWebGL:
-    name: Build for StandaloneWindows64 🗗
+  buildForAll:
+    name: Build all Supported platfroms 📦
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Build For Windows 🗗
       - uses: webbertakken/unity-builder@v0.5
         with:
-          unityVersion: 2019.2.17f1
+          #TODO: figure out how to raise the version number. & how set the workflow for updates later on
+          unityVersion: 2019.2.11f1
           targetPlatform: StandaloneWindows64
-      - uses: actions/upload-artifact@v1
+      
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1
         with:
           name: Build
           path: build
