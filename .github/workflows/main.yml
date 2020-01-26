@@ -107,7 +107,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Build For Windows 🗗
-      - uses: webbertakken/unity-builder@v0.5
+        uses: webbertakken/unity-builder@v0.5
         with:
           #TODO: figure out how to raise the version number. & how set the workflow for updates later on
           unityVersion: 2019.2.11f1
