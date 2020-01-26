@@ -6,8 +6,8 @@ namespace Assets.Scripts
 {
     public class Loader : MonoBehaviour
     {
-        public GameManager gameManager;         //GameManager prefab to instantiate.
-        public SoundManager soundManager;         //SoundManager prefab to instantiate.
+        public GameManager gameManager;
+        public SoundManager soundManager;
 
 
         [UsedImplicitly]

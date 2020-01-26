@@ -96,9 +96,7 @@ namespace Assets.Scripts
 
             base.AttemptMove<T>(xDir, yDir);
 
-            RaycastHit2D hit;
-
-            if (Move(xDir, yDir, out hit))
+            if (Move(xDir, yDir, out _))
             {
                 SoundManager.instance.RandomizeSfx(moveSounds);
             }
