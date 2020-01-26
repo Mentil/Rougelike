@@ -116,5 +116,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: Build
+          name: rougelike_windows64_2019.2.17f1
           path: build
