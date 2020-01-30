@@ -6,18 +6,18 @@ namespace Rougelike.Assets.Scripts
 {
     public class SoundManager : MonoBehaviour
     {
-        public AudioSource efxSource;
-        public AudioSource musicSource;
-        public static SoundManager instance;
-        public float lowPitchRange = .95f;
-        public float highPitchRange = 1.05f;
+        public AudioSource EfxSource;
+        public AudioSource MusicSource;
+        public static SoundManager Instance;
+        public float LowPitchRange = .95f;
+        public float HighPitchRange = 1.05f;
 
         [UsedImplicitly]
         void Awake()
         {
-            if (instance == null)
-                instance = this;
-            else if (instance != this)
+            if (Instance == null)
+                Instance = this;
+            else if (Instance != this)
                 Destroy(gameObject);
 
             DontDestroyOnLoad(gameObject);
@@ -25,21 +25,21 @@ namespace Rougelike.Assets.Scripts
 
         public void PlaySingle(AudioClip clip)
         {
-            efxSource.clip = clip;
-            efxSource.Play();
+            EfxSource.clip = clip;
+            EfxSource.Play();
         }
 
         public void RandomizeSfx(params AudioClip[] clips)
         {
             int randomIndex = Random.Range(0, clips.Length);
 
-            float randomPitch = Random.Range(lowPitchRange, highPitchRange);
+            float randomPitch = Random.Range(LowPitchRange, HighPitchRange);
 
-            efxSource.pitch = randomPitch;
+            EfxSource.pitch = randomPitch;
 
-            efxSource.clip = clips[randomIndex];
+            EfxSource.clip = clips[randomIndex];
 
-            efxSource.Play();
+            EfxSource.Play();
         }
     }
 }

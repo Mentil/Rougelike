@@ -162,11 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d93ed599a9fd4a8c91315782c6d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.1
-  blockingLayer:
+  MoveTime: 0.1
+  BlockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  playerDamage: 10
-  attackSounds:
+  PlayerDamage: 0
+  AttackSounds:
   - {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   - {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}

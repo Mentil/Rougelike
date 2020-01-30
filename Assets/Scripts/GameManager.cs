@@ -9,12 +9,12 @@ namespace Rougelike.Assets.Scripts
 {
     public class GameManager : MonoBehaviour
     {
-        public float levelStartDelay = 1f;
-        public float turnDelay = 0.1f;
-        public int playerFoodPoints = 200;
-        public static GameManager instance;
-        public Player player;
-        public bool playersTurn = true;
+        public float LevelStartDelay = 1f;
+        public float TurnDelay = 0.1f;
+        public int PlayerFoodPoints = 200;
+        public static GameManager Instance;
+        public Player Player;
+        public bool PlayersTurn = true;
                                                                                                                                                        
         private Text _levelText;
         private Text _foodText;
@@ -28,9 +28,9 @@ namespace Rougelike.Assets.Scripts
         [UsedImplicitly]
         void Awake()
         {
-            if (instance == null)
-                instance = this;
-            else if (instance != this)
+            if (Instance == null)
+                Instance = this;
+            else if (Instance != this)
                 Destroy(gameObject);
 
             DontDestroyOnLoad(gameObject);
@@ -48,24 +48,24 @@ namespace Rougelike.Assets.Scripts
 
         private static void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            instance._level++;
-            instance.InitGame();
+            Instance._level++;
+            Instance.InitGame();
         }
 
         void InitGame()
         {
             _doingSetup = true;
 
-            Instantiate(player, new Vector3(0, 0, 0f), Quaternion.identity);
+            Instantiate(Player, new Vector3(0, 0, 0f), Quaternion.identity);
 
             _levelImage = GameObject.Find("LevelImage");
             _levelText = GameObject.Find("LevelText").GetComponent<Text>();
             _foodText = GameObject.Find("FoodText").GetComponent<Text>();
             _levelText.text = "Day " + _level;
             _levelImage.SetActive(true);
-            player.food = playerFoodPoints;
-            _foodText.text = $"Food {player.food}";
-            Invoke("HideLevelImage", levelStartDelay);
+            Player.Food = PlayerFoodPoints;
+            _foodText.text = $"Food {Player.Food}";
+            Invoke("HideLevelImage", LevelStartDelay);
             _enemies.Clear();
             _boardScript.SetupScene(_level);
         }
@@ -86,7 +86,7 @@ namespace Rougelike.Assets.Scripts
         [UsedImplicitly]
         void Update()
         {
-            if (playersTurn || _enemiesMoving || _doingSetup)
+            if (PlayersTurn || _enemiesMoving || _doingSetup)
                 return;
 
             StartCoroutine(MoveEnemies());
@@ -117,21 +117,21 @@ namespace Rougelike.Assets.Scripts
         {
             _enemiesMoving = true;
 
-            yield return new WaitForSeconds(turnDelay);
-            _foodText.text = $"Food {player.food}";
+            yield return new WaitForSeconds(TurnDelay);
+            _foodText.text = $"Food {Player.Food}";
 
             if (_enemies.Count == 0)
             {
-                yield return new WaitForSeconds(turnDelay);
+                yield return new WaitForSeconds(TurnDelay);
             }
 
             foreach (var enemy in _enemies)
             {
                 enemy.MoveEnemy();
-                yield return new WaitForSeconds(enemy.moveTime);
+                yield return new WaitForSeconds(enemy.MoveTime);
             }
 
-            playersTurn = true;
+            PlayersTurn = true;
             _enemiesMoving = false;
         }
     }

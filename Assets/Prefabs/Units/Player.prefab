@@ -162,22 +162,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8187d75ee31024da4230e55fb67158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.1
-  blockingLayer:
+  MoveTime: 0.1
+  BlockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  restartLevelDelay: 1
-  pointsPerFood: 10
-  pointsPerSoda: 20
-  wallDamage: 1
-  foodText: {fileID: 0}
-  moveSounds:
+  MoveSounds:
   - {fileID: 8300000, guid: 892962212a4b74d1c9f578a3b6ea6439, type: 3}
   - {fileID: 8300000, guid: a826bc3d758db43d6ae9caf415b63d1d, type: 3}
-  eatSounds:
+  EatSounds:
   - {fileID: 8300000, guid: 1cb61f83d60374c7389bb547431919e3, type: 3}
   - {fileID: 8300000, guid: 062161c1897a54088a5430f8c197e1b8, type: 3}
-  drinkSounds:
+  DrinkSounds:
   - {fileID: 8300000, guid: b6b608537288246c9a464915db27bf52, type: 3}
   - {fileID: 8300000, guid: bcb9dda73ee914d3e8f252895f73f461, type: 3}
-  gameOverSound: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}
+  GameOverSound: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}
+  Food: 200

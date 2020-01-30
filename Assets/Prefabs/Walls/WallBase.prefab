@@ -94,11 +94,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce574c3b95b2a1047922eb5dfbebe1fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chopSounds:
+  ChopSounds:
   - {fileID: 8300000, guid: 4c2332bc8245b474dad63074059bb755, type: 3}
   - {fileID: 8300000, guid: f6aaac83be9e0493493aace800b76619, type: 3}
-  dmgSprite: {fileID: 0}
-  hp: 3
+  DmgSprite: {fileID: 0}
+  Hp: 3
 --- !u!61 &6533270161306500429
 BoxCollider2D:
   m_ObjectHideFlags: 0

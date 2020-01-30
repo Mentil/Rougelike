@@ -13,6 +13,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300100, guid: fbe1e7b94bb1a4a099d5bcb15a00141c,
         type: 3}
+    - target: {fileID: -7850274724325888066, guid: 2628da1671761234b91dd188ac81a7e8,
+        type: 3}
+      propertyPath: DmgSprite
+      value: 
+      objectReference: {fileID: 21300100, guid: fbe1e7b94bb1a4a099d5bcb15a00141c,
+        type: 3}
     - target: {fileID: 6533270161306500418, guid: 2628da1671761234b91dd188ac81a7e8,
         type: 3}
       propertyPath: m_Name

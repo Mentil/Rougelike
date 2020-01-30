@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70481fc59468e324398437533538c91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelStartDelay: 1
-  turnDelay: 0.1
-  playerFoodPoints: 200
-  player: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5, type: 3}
-  playersTurn: 1
+  LevelStartDelay: 1
+  TurnDelay: 0.1
+  PlayerFoodPoints: 200
+  Player: {fileID: -4354578091675832908, guid: e335179c7cc1ea24a9442e69d9644ab5, type: 3}
+  PlayersTurn: 1
 --- !u!114 &4540497916761641220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,19 +61,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d44030ed5db514fba7c4d92849ac02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 16
-  rows: 16
-  wallCount:
-    minimum: 50
-    maximum: 80
-  foodCount:
-    minimum: 5
-    maximum: 10
-  enemyCount:
-    minimum: 1
-    maximum: 2
-  exit: {fileID: 2354263759180124556, guid: 4c8bf928cb55a6644a69e6b50bc5359f, type: 3}
-  floorTiles:
+  Columns: 16
+  Rows: 16
+  Exit: {fileID: 2354263759180124556, guid: 4c8bf928cb55a6644a69e6b50bc5359f, type: 3}
+  FloorTiles:
   - {fileID: 5120377639796886863, guid: 5926c64cd79df674fb3c26f32ec6852c, type: 3}
   - {fileID: 6390204599838930625, guid: 87bcbe29c5ce132408cd8cb002848fc7, type: 3}
   - {fileID: 8152040238040055261, guid: daf71d0649dcf9a41b768309a4b084ff, type: 3}
@@ -82,7 +73,7 @@ MonoBehaviour:
   - {fileID: 5966040636378284312, guid: 98bff4491102b624793d63fe3b9da9b8, type: 3}
   - {fileID: 52487785327691188, guid: 1163e47d73bdc1342aa7be47e3da3d21, type: 3}
   - {fileID: 4660357094744375048, guid: 30c25c94ad07f3f43847f65fc3dd914c, type: 3}
-  wallTiles:
+  WallTiles:
   - {fileID: 3718989666877503354, guid: 28e29b51e083b734586262916cf28e54, type: 3}
   - {fileID: 9096316153067542865, guid: 03822a10c647e6447984d6b58f49a813, type: 3}
   - {fileID: 7743253120715420875, guid: ba107ef0ea696ad47824dbe31161a42c, type: 3}
@@ -91,13 +82,11 @@ MonoBehaviour:
   - {fileID: 176662936057457792, guid: bbf24618d82060a44aa1df243abd01ac, type: 3}
   - {fileID: 8709959634729649374, guid: e4808d6802d3cd54a8bccb59618b0f3c, type: 3}
   - {fileID: 5127312053606803639, guid: 407eb0a243489d447973cc1bb81aae89, type: 3}
-  foodTiles:
+  FoodTiles:
   - {fileID: 6354290966639903728, guid: 495fbeec67b0cdc4d91c6160dae64bf5, type: 3}
   - {fileID: 8781792876280884957, guid: 2bd1387ef09d68245aaa36300c6f5e26, type: 3}
-  enemyTiles:
-  - {fileID: 6902345919261548050, guid: 52c4ed94487d5e04cb56420844f8adc1, type: 3}
-  - {fileID: 2593419244725046981, guid: 1c68ad42d24b8ca44b3656fb01366dc7, type: 3}
-  outerWallTiles:
+  EnemyTiles: []
+  OuterWallTiles:
   - {fileID: 2830192836722588366, guid: bd72772ceb30787449291d462cc796ea, type: 3}
   - {fileID: 2848162397036240295, guid: 65775e06423bf194781f7c3364edbf1c, type: 3}
   - {fileID: 6874930578402344784, guid: ba548df9d9b32b746ba0f7e75c13615d, type: 3}

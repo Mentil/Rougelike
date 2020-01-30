@@ -6,8 +6,8 @@ namespace Rougelike.Assets.Scripts
 {
     public abstract class MovingObject : MonoBehaviour
     {
-        public float moveTime = 0.1f;
-        public LayerMask blockingLayer;
+        public float MoveTime = 0.1f;
+        public LayerMask BlockingLayer;
 
         private BoxCollider2D _boxCollider;
         private Rigidbody2D _rb2D;
@@ -17,7 +17,7 @@ namespace Rougelike.Assets.Scripts
         {
             _boxCollider = GetComponent<BoxCollider2D>();
             _rb2D = GetComponent<Rigidbody2D>();
-            _inverseMoveTime = 1f / moveTime;
+            _inverseMoveTime = 1f / MoveTime;
         }
 
         protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
@@ -28,7 +28,7 @@ namespace Rougelike.Assets.Scripts
             //Disable the boxCollider so that linecast doesn't hit this object's own collider.
             _boxCollider.enabled = false;
 
-            hit = Physics2D.Linecast(start, end, blockingLayer);
+            hit = Physics2D.Linecast(start, end, BlockingLayer);
 
             _boxCollider.enabled = true;
 

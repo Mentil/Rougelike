@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using UnityEngine;
@@ -8,31 +7,17 @@ namespace Rougelike.Assets.Scripts
 {
     public class BoardManager : MonoBehaviour
     {
-        [Serializable]
-        public class Count
-        {
-            public int minimum;
-            public int maximum;
-
-            public Count(int min, int max)
-            {
-                minimum = min;
-                maximum = max;
-            }
-        }
-
-
-        public int columns = 16;
-        public int rows = 16;
-        public Count wallCount = new Count(50, 80);
-        public Count foodCount = new Count(5, 10);
-        public Count enemyCount = new Count(1, 2);
-        public GameObject exit;            
-        public GameObject[] floorTiles;
-        public GameObject[] wallTiles;
-        public GameObject[] foodTiles;
-        public GameObject[] enemyTiles;
-        public GameObject[] outerWallTiles;
+        public int Columns = 16;
+        public int Rows = 16;
+        public (int Min, int Max) WallCount = (50, 80);
+        public (int Min, int Max) FoodCount = (5, 10);
+        public (int Min, int Max) EnemyCount = (1, 2);
+        public GameObject Exit;            
+        public GameObject[] FloorTiles;
+        public GameObject[] WallTiles;
+        public GameObject[] FoodTiles;
+        public GameObject[] EnemyTiles;
+        public GameObject[] OuterWallTiles;
 
         private Transform _boardHolder;
         private readonly List<Vector3> _gridPositions = new List<Vector3>();
@@ -41,11 +26,11 @@ namespace Rougelike.Assets.Scripts
         {
             _gridPositions.Clear();
 
-            for (int x = 0; x < columns; x++)
+            for (int x = 0; x < Columns; x++)
             {
-                for (int y = 0; y < rows; y++)
+                for (int y = 0; y < Rows; y++)
                 {
-                    if ((x == 0 && y == 0) || (x == columns - 1 && y == rows - 1))
+                    if ((x == 0 && y == 0) || (x == Columns - 1 && y == Rows - 1))
                     {
                         continue;
                     }
@@ -58,15 +43,15 @@ namespace Rougelike.Assets.Scripts
         {
             _boardHolder = new GameObject("Board").transform;
 
-            for (int x = -1; x < columns + 1; x++)
+            for (int x = -1; x < Columns + 1; x++)
             {
-                for (int y = -1; y < rows + 1; y++)
+                for (int y = -1; y < Rows + 1; y++)
                 {
 
-                    GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                    GameObject toInstantiate = FloorTiles[Random.Range(0, FloorTiles.Length)];
 
-                    if (x == -1 || x == columns || y == -1 || y == rows)
-                        toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
+                    if (x == -1 || x == Columns || y == -1 || y == Rows)
+                        toInstantiate = OuterWallTiles[Random.Range(0, OuterWallTiles.Length)];
 
                     var instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity);
 
@@ -100,13 +85,13 @@ namespace Rougelike.Assets.Scripts
         {
             BoardSetup();
             InitialiseList();
-            LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-            LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
-            Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+            LayoutObjectAtRandom(WallTiles, WallCount.Min, WallCount.Max);
+            LayoutObjectAtRandom(FoodTiles, FoodCount.Min, FoodCount.Max);
+            Instantiate(Exit, new Vector3(Columns - 1, Rows - 1, 0f), Quaternion.identity);
 
-            enemyCount.minimum = (int)Mathf.Log(level, 2f) * 10;
-            enemyCount.maximum = (int) Mathf.Log(level, 2f) * 20;
-            LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
+            EnemyCount.Min = (int)Mathf.Log(level, 2f) * 10;
+            EnemyCount.Max = (int) Mathf.Log(level, 2f) * 20;
+            LayoutObjectAtRandom(EnemyTiles, EnemyCount.Min, EnemyCount.Max);
         }
     }
 }

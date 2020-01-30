@@ -6,10 +6,9 @@ namespace Rougelike.Assets.Scripts
 {
     public class Wall : MonoBehaviour
     {
-        public AudioClip[] chopSounds;
-        public Sprite dmgSprite;
-        public int hp = 3;
-
+        public AudioClip[] ChopSounds;
+        public Sprite DmgSprite;
+        public int Hp = 3;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -22,13 +21,13 @@ namespace Rougelike.Assets.Scripts
 
         public void DamageWall(int loss)
         {
-            SoundManager.instance.RandomizeSfx(chopSounds);
+            SoundManager.Instance.RandomizeSfx(ChopSounds);
 
-            _spriteRenderer.sprite = dmgSprite;
+            _spriteRenderer.sprite = DmgSprite;
 
-            hp -= loss;
+            Hp -= loss;
 
-            if (hp <= 0)
+            if (Hp <= 0)
                 gameObject.SetActive(false);
         }
     }

@@ -286,6 +286,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -495592180521426027, guid: d818a70d2341fc2478a07776117d728c,
         type: 3}
+    - target: {fileID: 4654420726433485705, guid: d5e859be19cd9d64abf13ca48dbcf600,
+        type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: -495592180521426027, guid: d818a70d2341fc2478a07776117d728c,
+        type: 3}
+    - target: {fileID: 4654420726433485705, guid: d5e859be19cd9d64abf13ca48dbcf600,
+        type: 3}
+      propertyPath: SoundManager
+      value: 
+      objectReference: {fileID: 3200249703962765479, guid: 31fc74ead1692f6468091a1d66a54658,
+        type: 3}
     - target: {fileID: 4654420726433485707, guid: d5e859be19cd9d64abf13ca48dbcf600,
         type: 3}
       propertyPath: m_Name

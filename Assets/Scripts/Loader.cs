@@ -6,18 +6,18 @@ namespace Rougelike.Assets.Scripts
 {
     public class Loader : MonoBehaviour
     {
-        public GameManager gameManager;
-        public SoundManager soundManager;
+        public GameManager GameManager;
+        public SoundManager SoundManager;
 
 
         [UsedImplicitly]
         void Awake()
         {
-            if (GameManager.instance == null)
-                Instantiate(gameManager);
+            if (GameManager.Instance == null)
+                Instantiate(GameManager);
 
-            if (SoundManager.instance == null)
-                Instantiate(soundManager);
+            if (SoundManager.Instance == null)
+                Instantiate(SoundManager);
         }
 
         [UsedImplicitly]

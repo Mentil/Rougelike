@@ -1,21 +1,20 @@
 ﻿
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Rougelike.Assets.Scripts
 {
     public class Player : MovingObject
     {
-        private int pointsPerFood = 10;
-        private int pointsPerSoda = 20;
-        private int wallDamage = 1;
-        public AudioClip[] moveSounds;
-        public AudioClip[] eatSounds;
-        public AudioClip[] drinkSounds;
-        public AudioClip gameOverSound;
-        public int food;                  
+        public AudioClip[] MoveSounds;
+        public AudioClip[] EatSounds;
+        public AudioClip[] DrinkSounds;
+        public AudioClip GameOverSound;
+        public int Food;
 
+        private const int PointsPerFood = 10;
+        private const int PointsPerSoda = 20;
+        private const int WallDamage = 1;
         private Animator _animator;         
         private bool _isColliding;
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
@@ -25,7 +24,7 @@ namespace Rougelike.Assets.Scripts
         protected override void Start()
         {
             _animator = GetComponent<Animator>();
-            food = GameManager.instance.playerFoodPoints;
+            Food = GameManager.Instance.PlayerFoodPoints;
 
             base.Start();
         }
@@ -40,7 +39,7 @@ namespace Rougelike.Assets.Scripts
         [UsedImplicitly]
         private void Update()
         {
-            if (!GameManager.instance.playersTurn) return;
+            if (!GameManager.Instance.PlayersTurn) return;
 
 #if UNITY_STANDALONE || UNITY_WEBGL
 
@@ -88,25 +87,25 @@ namespace Rougelike.Assets.Scripts
 
         protected override void AttemptMove<T>(int xDir, int yDir)
         {
-            food--;
+            Food--;
 
             base.AttemptMove<T>(xDir, yDir);
 
             if (Move(xDir, yDir, out _))
             {
-                SoundManager.instance.RandomizeSfx(moveSounds);
+                SoundManager.Instance.RandomizeSfx(MoveSounds);
             }
 
             CheckIfGameOver();
 
-            GameManager.instance.playersTurn = false;
+            GameManager.Instance.PlayersTurn = false;
         }
 
         protected override void OnCantMove<T>(T component)
         {
             if (component is Wall wall)
             {
-                wall.DamageWall(wallDamage);
+                wall.DamageWall(WallDamage);
                 _animator.SetTrigger("PlayerChop");
             }
         }
@@ -120,20 +119,20 @@ namespace Rougelike.Assets.Scripts
             if (other.tag == "Exit")
             {
                 _isColliding = true;
-                GameManager.instance.playerFoodPoints = food;
-                Invoke("Restart", GameManager.instance.levelStartDelay);
+                GameManager.Instance.PlayerFoodPoints = Food;
+                Invoke("Restart", GameManager.Instance.LevelStartDelay);
                 enabled = false;
             }
             else if (other.tag == "Food")
             {
-                food += pointsPerFood;
-                SoundManager.instance.RandomizeSfx(eatSounds);
+                Food += PointsPerFood;
+                SoundManager.Instance.RandomizeSfx(EatSounds);
                 other.gameObject.SetActive(false);
             }
             else if (other.tag == "Soda")
             {
-                food += pointsPerSoda;
-                SoundManager.instance.RandomizeSfx(drinkSounds);
+                Food += PointsPerSoda;
+                SoundManager.Instance.RandomizeSfx(DrinkSounds);
                 other.gameObject.SetActive(false);
             }
         }
@@ -141,23 +140,23 @@ namespace Rougelike.Assets.Scripts
         [UsedImplicitly]
         private void Restart()
         {
-            GameManager.instance.Restart();
+            GameManager.Instance.Restart();
         }
 
         public void LoseFood(int loss)
         {
             _animator.SetTrigger("PlayerHit");
-            food -= loss;
+            Food -= loss;
             CheckIfGameOver();
         }
 
         private void CheckIfGameOver()
         {
-            if (food <= 0)
+            if (Food <= 0)
             {
-                SoundManager.instance.PlaySingle(gameOverSound);
-                SoundManager.instance.musicSource.Stop();
-                GameManager.instance.GameOver();
+                SoundManager.Instance.PlaySingle(GameOverSound);
+                SoundManager.Instance.MusicSource.Stop();
+                GameManager.Instance.GameOver();
             }
         }
     }

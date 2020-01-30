@@ -5,8 +5,8 @@ namespace Rougelike.Assets.Scripts
 {
     public class Enemy : MovingObject
     {
-        public int playerDamage;
-        public AudioClip[] attackSounds;
+        public int PlayerDamage;
+        public AudioClip[] AttackSounds;
 
         private Animator _animator;
         private Transform _target;
@@ -14,7 +14,7 @@ namespace Rougelike.Assets.Scripts
 
         protected override void Start()
         {
-            GameManager.instance.AddEnemyToList(this);
+            GameManager.Instance.AddEnemyToList(this);
 
             _animator = GetComponent<Animator>();
 
@@ -65,9 +65,9 @@ namespace Rougelike.Assets.Scripts
         {
             if (component is Player player)
             {
-                player.LoseFood(playerDamage);
+                player.LoseFood(PlayerDamage);
                 _animator.SetTrigger("EnemyAttack");
-                SoundManager.instance.RandomizeSfx(attackSounds);
+                SoundManager.Instance.RandomizeSfx(AttackSounds);
             }
         }
     }
