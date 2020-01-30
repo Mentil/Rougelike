@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class CameraManager : MonoBehaviour
     {
+        [UsedImplicitly]
         void Update()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");

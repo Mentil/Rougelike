@@ -1,24 +1,22 @@
 ﻿
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
 {
     public class Player : MovingObject
     {
-        public int pointsPerFood = 10;
-        public int pointsPerSoda = 20;
-        public int wallDamage = 1;
-        public Text foodText;
+        private int pointsPerFood = 10;
+        private int pointsPerSoda = 20;
+        private int wallDamage = 1;
         public AudioClip[] moveSounds;
         public AudioClip[] eatSounds;
         public AudioClip[] drinkSounds;
         public AudioClip gameOverSound;
+        public int food;                  
 
         private Animator _animator;         
-        private int _food;                  
         private bool _isColliding;
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
         private Vector2 _touchOrigin = -Vector2.one;
@@ -27,8 +25,7 @@ namespace Assets.Scripts
         protected override void Start()
         {
             _animator = GetComponent<Animator>();
-            _food = GameManager.instance.playerFoodPoints;
-            foodText.text = "Food: " + _food;
+            food = GameManager.instance.playerFoodPoints;
 
             base.Start();
         }
@@ -91,8 +88,7 @@ namespace Assets.Scripts
 
         protected override void AttemptMove<T>(int xDir, int yDir)
         {
-            _food--;
-            foodText.text = "Food: " + _food;
+            food--;
 
             base.AttemptMove<T>(xDir, yDir);
 
@@ -124,21 +120,19 @@ namespace Assets.Scripts
             if (other.tag == "Exit")
             {
                 _isColliding = true;
-                GameManager.instance.playerFoodPoints = _food;
+                GameManager.instance.playerFoodPoints = food;
                 Invoke("Restart", GameManager.instance.levelStartDelay);
                 enabled = false;
             }
             else if (other.tag == "Food")
             {
-                _food += pointsPerFood;
-                foodText.text = "+" + pointsPerFood + " Food: " + _food;
+                food += pointsPerFood;
                 SoundManager.instance.RandomizeSfx(eatSounds);
                 other.gameObject.SetActive(false);
             }
             else if (other.tag == "Soda")
             {
-                _food += pointsPerSoda;
-                foodText.text = "+" + pointsPerSoda + " Food: " + _food;
+                food += pointsPerSoda;
                 SoundManager.instance.RandomizeSfx(drinkSounds);
                 other.gameObject.SetActive(false);
             }
@@ -153,14 +147,13 @@ namespace Assets.Scripts
         public void LoseFood(int loss)
         {
             _animator.SetTrigger("PlayerHit");
-            _food -= loss;
-            foodText.text = "-" + loss + " Food: " + _food;
+            food -= loss;
             CheckIfGameOver();
         }
 
         private void CheckIfGameOver()
         {
-            if (_food <= 0)
+            if (food <= 0)
             {
                 SoundManager.instance.PlaySingle(gameOverSound);
                 SoundManager.instance.musicSource.Stop();
