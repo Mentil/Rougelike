@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Rougelike.Assets.Scripts
 {
     public class CameraManager : MonoBehaviour
     {

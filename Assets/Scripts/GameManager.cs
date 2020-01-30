@@ -1,12 +1,11 @@
-﻿
-using JetBrains.Annotations;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Rougelike.Assets.Scripts
 {
     public class GameManager : MonoBehaviour
     {

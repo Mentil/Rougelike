@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Rougelike.Assets.Scripts
 {
     public class BoardManager : MonoBehaviour
     {

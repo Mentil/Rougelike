@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 
-namespace Assets.Scripts
+namespace Rougelike.Assets.Scripts
 {
     public abstract class MovingObject : MonoBehaviour
     {

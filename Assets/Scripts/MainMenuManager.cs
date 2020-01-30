@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Scripts
+namespace Rougelike.Assets.Scripts
 {
     public class MainMenuManager : MonoBehaviour
     {

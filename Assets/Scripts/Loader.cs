@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Rougelike.Assets.Scripts
 {
     public class Loader : MonoBehaviour
     {
@@ -20,6 +20,7 @@ namespace Assets.Scripts
                 Instantiate(soundManager);
         }
 
+        [UsedImplicitly]
         void Update()
         {
             if (Input.GetKey("escape"))

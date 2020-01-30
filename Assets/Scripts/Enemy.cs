@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Rougelike.Assets.Scripts
 {
     public class Enemy : MovingObject
     {
