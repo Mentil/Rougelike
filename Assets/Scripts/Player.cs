@@ -141,7 +141,7 @@ namespace Rougelike.Assets.Scripts
         [UsedImplicitly]
         private void Restart()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+            GameManager.instance.Restart();
         }
 
         public void LoseFood(int loss)

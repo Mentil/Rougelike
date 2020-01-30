@@ -70,6 +70,12 @@ namespace Rougelike.Assets.Scripts
             _boardScript.SetupScene(_level);
         }
 
+        public void Restart()
+        {
+            StopAllCoroutines();
+            _enemiesMoving = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        }
         [UsedImplicitly]
         void HideLevelImage()
         {
