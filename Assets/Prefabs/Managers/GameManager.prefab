@@ -85,7 +85,9 @@ MonoBehaviour:
   FoodTiles:
   - {fileID: 6354290966639903728, guid: 495fbeec67b0cdc4d91c6160dae64bf5, type: 3}
   - {fileID: 8781792876280884957, guid: 2bd1387ef09d68245aaa36300c6f5e26, type: 3}
-  EnemyTiles: []
+  EnemyTiles:
+  - {fileID: 6902345919261548050, guid: 52c4ed94487d5e04cb56420844f8adc1, type: 3}
+  - {fileID: 2593419244725046981, guid: 1c68ad42d24b8ca44b3656fb01366dc7, type: 3}
   OuterWallTiles:
   - {fileID: 2830192836722588366, guid: bd72772ceb30787449291d462cc796ea, type: 3}
   - {fileID: 2848162397036240295, guid: 65775e06423bf194781f7c3364edbf1c, type: 3}
